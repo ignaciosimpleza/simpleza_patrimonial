@@ -1243,7 +1243,7 @@ function tablaInitPills(){
   const mc=document.getElementById('tabla-month-pills');
   const yc=document.getElementById('tabla-year-pills');
   if(!mc||mc.children.length>0)return;
-  _allMonths.forEach(m=>{const btn=document.createElement('button');btn.className='period-pill active';btn.textContent=m===9?'Septiembre':'Marzo';btn.dataset.month=m;btn.onclick=function(){if(tablaActiveMonths.has(m)){if(tablaActiveMonths.size<=1)return;tablaActiveMonths.delete(m);this.classList.remove('active');}else{tablaActiveMonths.add(m);this.classList.add('active');}buildTablas();};mc.appendChild(btn);});
+  _allMonths.forEach(m=>{const btn=document.createElement('button');btn.className='period-pill active';btn.textContent=['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'][m]||('Mes '+m);btn.dataset.month=m;btn.onclick=function(){if(tablaActiveMonths.has(m)){if(tablaActiveMonths.size<=1)return;tablaActiveMonths.delete(m);this.classList.remove('active');}else{tablaActiveMonths.add(m);this.classList.add('active');}buildTablas();};mc.appendChild(btn);});
   _allYears.forEach(y=>{const btn=document.createElement('button');btn.className='period-pill active';btn.textContent=y;btn.dataset.year=y;btn.onclick=function(){if(tablaActiveYears.has(y)){if(tablaActiveYears.size<=1)return;tablaActiveYears.delete(y);this.classList.remove('active');}else{tablaActiveYears.add(y);this.classList.add('active');}buildTablas();};yc.appendChild(btn);});
 }
 function tablaSelectAll(){tablaActiveMonths=new Set(_allMonths);tablaActiveYears=new Set(_allYears);document.querySelectorAll('[data-month]').forEach(b=>b.classList.add('active'));document.querySelectorAll('[data-year]').forEach(b=>b.classList.add('active'));buildTablas();}
@@ -1348,7 +1348,7 @@ function _ensureDateSlot(di){
 }
 function _addDateColumn(dateStr){
   const parts=dateStr.split('/'),m=+parts[1],y=parts[2].slice(2);
-  DATES.push(dateStr); DATE_LABELS.push((m===9?'Sep':'Mar')+'-'+y);
+  DATES.push(dateStr); DATE_LABELS.push((['','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'][m]||'M'+m)+'-'+y);
   const di=DATES.length-1;
   _ensureDateSlot(di);
   ['sel-base','sel-comp','oaf-desde','oaf-hasta','dupont-periodo'].forEach(id=>{
